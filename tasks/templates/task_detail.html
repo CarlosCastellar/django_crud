@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mt-5 mx-auto" style="width: 50%">
+  <div class="card-body">
+    <h1 class="text-center display-4">Task Detail</h1>
+
+    <form method="POST" class="d-inline">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Update</button>
+    </form>
+
+    <form action="/tasks/{{task.id}}/complete" method="POST" class="d-inline">
+        {% csrf_token %}
+        <button class="btn btn-success">Complete</button>
+    </form>
+
+    <form action="/tasks/{{task.id}}/delete" method="post" class="d-inline">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+    </form>
+
+    {{error}}
+  </div>
+</div>
+{% endblock %}

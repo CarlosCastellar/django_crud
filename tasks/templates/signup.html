@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Registro</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'signup' %}" id="signup-form">
+                        {% csrf_token %}
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Ingresa tu nombre de usuario" required>
+                        </div>
+                        <!-- Password 1 -->
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password1" name="password1"
+                                placeholder="Ingresa tu contraseña" required>
+                        </div>
+                        <!-- Password 2 -->
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirmar Contraseña</label>
+                            <input type="password" class="form-control" id="password2" name="password2"
+                                placeholder="Confirma tu contraseña" required>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                        {% endif %}
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" onclick="validateForm()">Registrarse</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <small>¿Ya tienes una cuenta? <a href="{% url 'signin' %}">Inicia Sesión</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        event.preventDefault();
+        var username = document.getElementById('username').value;
+        var password1 = document.getElementById('password1').value;
+        var password2 = document.getElementById('password2').value;
+
+        if (username == '' || password1 == '' || password2 ==    '') {
+            alert('Por favor, completa todos los campos.');
+        } else if (username.length < 4) {
+            alert('El nombre de usuario debe tener al menos 4 caracteres.');
+        } else if (password1 !== password2) {
+            alert('Las contraseñas no coinciden.');
+        } else if (password1.length < 3) {
+            alert('La contraseña debe tener al menos 3 caracteres.');
+        } else {
+            document.getElementById('signup-form').submit();
+        }
+    }
+</script>
+
+
+{% endblock %}

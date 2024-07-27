@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Iniciar Sesión</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'signin' %}" id="signin-form">
+                        {% csrf_token %}
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Ingresa tu nombre de usuario" required>
+                        </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Ingresa tu contraseña" required>
+                        </div>
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                        {% endif %}
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <small>¿Aún no tienes una cuenta? <a href="{% url 'signup' %}">Regístrate</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
